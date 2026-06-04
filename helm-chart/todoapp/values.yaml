@@ -1,0 +1,39 @@
+namespace: todoapp
+replicaCount: 1
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  tag: "1.16.0"
+service:
+  type: ClusterIP
+  port: 80
+resources:
+  limits:
+    cpu: 500m
+    memory: 128Mi
+  requests:
+    cpu: 250m
+    memory: 64Mi
+rollingUpdate:
+  maxSurge: 1
+  maxUnavailable: 0
+nodeAffinity:
+  key: app
+  values:
+    - todoapp
+hpa:
+  minReplicas: 1
+  maxReplicas: 3
+  avgCpuUtilization: 70
+  avgMemoryUtilization: 70
+pv:
+  capacity: 1Gi
+pvc:
+  requestsStorage: 1Gi
+serviceAccount:
+  name: todoapp-sa
+secrets:
+  DB_HOST: bXlzcWw=
+  DB_NAME: dG9kb2FwcA==
+  DB_USER: cm9vdA==
+  DB_PASSWORD: cGFzc3dvcmQ=
