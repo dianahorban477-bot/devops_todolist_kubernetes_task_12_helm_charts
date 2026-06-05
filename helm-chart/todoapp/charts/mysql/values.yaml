@@ -1,0 +1,13 @@
+service:
+  port: 3306
+
+nodeAffinity:
+  key: app
+  values:
+    - todoapp
+
+ingress:
+  enabled: false
+
+httpRoute:
+  enabled: false

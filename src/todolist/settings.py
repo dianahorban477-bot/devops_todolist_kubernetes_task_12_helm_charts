@@ -69,8 +69,12 @@ DB_HOST = os.environ.get("DB_HOST", "")
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('DB_NAME', 'todoapp'),
+        'USER': os.environ.get('DB_USER', 'root'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'password'),
+        'HOST': os.environ.get('DB_HOST', 'mysql'),
+        'PORT': os.environ.get('DB_PORT', '3306'),
     }
 }
 
