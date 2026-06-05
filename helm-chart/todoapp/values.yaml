@@ -21,19 +21,39 @@ nodeAffinity:
   key: app
   values:
     - todoapp
+
+autoscaling:
+  enabled: false
+
 hpa:
   minReplicas: 1
   maxReplicas: 3
-  avgCpuUtilization: 70
-  avgMemoryUtilization: 70
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 70
 pv:
   capacity: 1Gi
 pvc:
-  requestsStorage: 1Gi
+  storage: 1Gi
 serviceAccount:
   name: todoapp-sa
 secrets:
-  DB_HOST: bXlzcWw=
-  DB_NAME: dG9kb2FwcA==
-  DB_USER: cm9vdA==
-  DB_PASSWORD: cGFzc3dvcmQ=
+  DB_HOST: "mysql"
+  DB_NAME: "todoapp"
+  DB_USER: "root"
+  DB_PASSWORD: "password"
+
+ingress:
+    enabled: false
+
+mysql:
+  service:
+    port: 3306
+  nodeAffinity:
+    key: app
+    values:
+      - todoapp
+
+ingress:
+  enabled: false
+httpRoute:
+  enabled: false

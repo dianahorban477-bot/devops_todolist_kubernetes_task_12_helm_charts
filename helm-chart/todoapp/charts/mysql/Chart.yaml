@@ -1,5 +1,0 @@
-apiVersion: v2
-name: mysql
-description: Sub-chart for MySQL database
-type: application
-version: 1.0.0

@@ -6,6 +6,6 @@ spec:
   capacity:
     storage: {{ .Values.pv.capacity }}
   accessModes:
-    - ReadWriteOnce:
+    - ReadWriteOnce
   hostPath:
     path: "/data/todoapp"

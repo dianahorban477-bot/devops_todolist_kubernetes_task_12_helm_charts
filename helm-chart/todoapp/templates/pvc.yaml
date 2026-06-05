@@ -8,5 +8,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: {{ .Values.pvc.storage }}
+      storage: {{ .Values.pvc.storage | quote }}
   volumeName: {{ .Chart.Name }}-pv
