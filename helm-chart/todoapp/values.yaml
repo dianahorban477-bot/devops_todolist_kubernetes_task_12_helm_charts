@@ -44,6 +44,11 @@ secrets:
 
 ingress:
     enabled: false
+    className: ""
+    annotations: {}
+    hosts: []
+    paths: []
+    tls: []
 
 mysql:
   service:

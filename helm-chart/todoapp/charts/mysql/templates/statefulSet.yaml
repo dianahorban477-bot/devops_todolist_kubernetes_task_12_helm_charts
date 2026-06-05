@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mysql
+  name: {{ .Chart.Name }}
 spec:
   serviceName: "mysql"
-  replicas: 1
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
       app: mysql
@@ -24,14 +24,28 @@ spec:
                 {{- range .Values.nodeAffinity.values }}
                 - {{ . | quote }}
                 {{- end }}
+    tolerations: {{- with .Values.tolerations }}
       containers:
       - name: mysql
-        image: mysql:5.7
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        resources:
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: "password"
+          value: {{- range $key, $val := .Values.secrets }}}
         - name: MYSQL_DATABASE
-          value: "todoapp"
+          value: {{- range $key, $val := .Values.secrets }}
         ports:
         - containerPort: 3306
           name: mysql
+        volumeMounts:
+
+        volumeClaimTemplates:
+          storage: {{ .Values.pvc.storage }}
+        app=mysql:NoSchedule
