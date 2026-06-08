@@ -1,6 +1,0 @@
-apiVersion: v2
-name: {{ .Chart.Name }}
-description: A MySQL subchart for todoapp
-type: application
-version: "0.1.0"
-appVersion: "5.7"
