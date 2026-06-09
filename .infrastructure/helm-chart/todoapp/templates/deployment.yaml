@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "todoapp.fullname" . }}
+  namespace: {{ .Values.namespace }}
   labels:
     {{- include "todoapp.labels" . | nindent 4 }}
 spec:
@@ -32,7 +33,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "todoapp.serviceAccountName" . }}
+      serviceAccountName: {{ .Values.serviceAccount.name }}
       {{- with .Values.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
@@ -46,13 +47,13 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-          {{- range $key, $val := .Values.secrets }}
+            {{- range $key, $val := .Values.secrets }}
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
                   name: {{ $.Chart.Name }}-secret
                   key: {{ $key }}
-          {{- end }}
+            {{- end }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
