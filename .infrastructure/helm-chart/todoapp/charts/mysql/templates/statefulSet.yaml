@@ -61,7 +61,7 @@ spec:
           mountPath: /var/lib/mysql
   volumeClaimTemplates:
   - metadata:
-    name: data
+      name: data
   spec:
     accessModes: ["ReadWriteOnce"]
     resources:
