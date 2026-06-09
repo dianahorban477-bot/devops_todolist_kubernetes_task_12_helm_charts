@@ -9,6 +9,8 @@ nodes:
       kubeletExtraArgs:
         cgroup-driver: systemd
 - role: worker
+  labels:
+    app: mysql
   kubeadmConfigPatches:
   - |
     kind: JoinConfiguration
@@ -16,6 +18,8 @@ nodes:
       kubeletExtraArgs:
         cgroup-driver: systemd
 - role: worker
+  labels:
+    app: mysql
   kubeadmConfigPatches:
   - |
     kind: JoinConfiguration
@@ -23,6 +27,8 @@ nodes:
       kubeletExtraArgs:
         cgroup-driver: systemd
 - role: worker
+  labels:
+    app: todoapp
   kubeadmConfigPatches:
   - |
     kind: JoinConfiguration
@@ -30,6 +36,8 @@ nodes:
       kubeletExtraArgs:
         cgroup-driver: systemd
 - role: worker
+  labels:
+    app: todoapp
   kubeadmConfigPatches:
   - |
     kind: JoinConfiguration
